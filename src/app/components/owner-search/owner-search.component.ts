@@ -3,7 +3,7 @@ import {Observable} from "rxjs/internal/Observable";
 import {Subject} from "rxjs/internal/Subject";
 import {Owner} from "../owner";
 import {debounceTime, distinctUntilChanged, switchMap} from "rxjs/operators";
-import {OwnerService} from "../owner.service";
+import {OwnerService} from "../services/owner.service";
 import {FormControl} from "@angular/forms";
 import {MatAutocompleteSelectedEvent} from "@angular/material";
 

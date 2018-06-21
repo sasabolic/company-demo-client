@@ -1,6 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {CompanyService} from "../company.service";
-import {ErrorMessageComponent} from "../error-message/error-message.component";
+import {CompanyService} from "../services/company.service";
 import {Company} from "../company";
 
 @Component({

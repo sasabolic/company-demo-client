@@ -7,11 +7,12 @@ import {of} from "rxjs/internal/observable/of";
 
 import {Owner} from "./owner";
 import {environment} from "../environments/environment";
+import {BaseService} from "./base.service";
 
 @Injectable({
   providedIn: 'root'
 })
-export class OwnerService {
+export class OwnerService extends BaseService {
   private ownersUrl = `${environment.apiPath}/owners`;
 
   constructor(private http: HttpClient) {
@@ -28,22 +29,5 @@ export class OwnerService {
         tap(() => console.log(`Received owners matching "${term}"`)),
         catchError(this.handleError<Owner[]>('searchOwners', []))
       );
-  }
-
-  /**
-   * Handle Http operation that failed.
-   * Let the app continue.
-   * @param operation - name of the operation that failed
-   * @param result - optional value to return as the observable result
-   */
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-
-      // TODO: send the error to remote logging infrastructure
-      console.error(error); // log to console instead
-
-      // Let the app keep running by returning an empty result.
-      return of(result as T);
-    };
   }
 }
