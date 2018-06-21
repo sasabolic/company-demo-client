@@ -1,22 +1,22 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
 
-import { AppComponent } from './app.component';
-import { CompaniesComponent } from './companies/companies.component';
+import {AppComponent} from './app.component';
+import {CompaniesComponent} from './companies/companies.component';
 
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import { CompanyDetailComponent } from './company-detail/company-detail.component';
-import { HttpClientModule } from "@angular/common/http";
-import { OwnerSearchComponent } from './owner-search/owner-search.component';
+import {CompanyDetailComponent} from './company-detail/company-detail.component';
+import {HttpClientModule} from "@angular/common/http";
+import {OwnerSearchComponent} from './owner-search/owner-search.component';
 import {
   MatAutocompleteModule,
   MatCardModule,
   MatChipsModule,
-  MatFormFieldModule, MatIconModule,
-  MatInputModule, MatProgressSpinnerModule
+  MatFormFieldModule,
+  MatIconModule,
+  MatInputModule
 } from "@angular/material";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import { AppRoutingModule } from './/app-routing.module';
 
 @NgModule({
   declarations: [
@@ -36,10 +36,10 @@ import { AppRoutingModule } from './/app-routing.module';
     ReactiveFormsModule,
     MatAutocompleteModule,
     MatChipsModule,
-    MatIconModule,
-    AppRoutingModule
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
