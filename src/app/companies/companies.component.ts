@@ -39,14 +39,7 @@ export class CompaniesComponent implements OnInit {
   }
 
   receiveMessage($event) {
-    alert('Message received: ' + $event);
-    // let index = this.companies.findIndex(c => c.id == $event.id);
-    // alert('index: ' + index);
-    // if (index === -1) {
-    //   this.companies.push($event)
-    // } else {
-    //   this.companies[index] = $event;
-    // }
+    console.log('Message received: ' + $event);
     if ($event === 'refresh') {
       this.getCompanies();
     }
