@@ -1,62 +1,10 @@
-<!--<div *ngIf="company">-->
-
-<!--<h2>Company: {{ company.name | uppercase }}</h2>-->
-<!--<div><span>id: </span>{{company.id}}</div>-->
-<!--<div>-->
-<!--<label>name:-->
-<!--<input [(ngModel)]="company.name" placeholder="name">-->
-<!--</label>-->
-<!--</div>-->
-<!--<div>-->
-<!--<label>address:-->
-<!--<input [(ngModel)]="company.address" placeholder="address">-->
-<!--</label>-->
-<!--</div>-->
-<!--<div>-->
-<!--<label>city:-->
-<!--<input [(ngModel)]="company.city" placeholder="city">-->
-<!--</label>-->
-<!--</div>-->
-<!--<div>-->
-<!--<label>country:-->
-<!--<input [(ngModel)]="company.country" placeholder="country">-->
-<!--</label>-->
-<!--</div>-->
-<!--<div>-->
-<!--<label>email:-->
-<!--<input [(ngModel)]="company.email" placeholder="email">-->
-<!--</label>-->
-<!--</div>-->
-<!--<div>-->
-<!--<label>phone number:-->
-<!--<input [(ngModel)]="company.phoneNumber" placeholder="phone number">-->
-<!--</label>-->
-<!--</div>-->
-<!--<div>-->
-<!--<label>owners:-->
-<!--<ul class="heroes">-->
-<!--<li *ngFor="let owner of company.owners" (click)="removeOwner(owner)">-->
-<!--<span class="badge">{{owner.id}}</span> {{owner.name}}-->
-<!--</li>-->
-<!--</ul>-->
-<!--<app-owner-search (messageEvent)="receiveMessage($event)"></app-owner-search>-->
-<!--</label>-->
-<!--</div>-->
-<!--<div *ngIf="company && company.id">-->
-<!--<button (click)="update()">Update</button>-->
-<!--</div>-->
-<!--<div *ngIf="company && !company.id">-->
-<!--<button (click)="create()">Create</button>-->
-<!--</div>-->
-
-<!--</div>-->
-
 <mat-card class="company-details-card" *ngIf="company">
-  <mat-card-header>
-    <!--<div mat-card-avatar class="example-header-image"></div>-->
-    <mat-card-title *ngIf="company.id">{{company.name}}</mat-card-title>
-    <mat-card-title *ngIf="!company.id">New Company</mat-card-title>
-    <mat-card-subtitle *ngIf="company.id">{{company.city}}, {{company.country}}</mat-card-subtitle>
+  <mat-card-header *ngIf="company.id">
+    <mat-card-title>{{company.name}}</mat-card-title>
+    <mat-card-subtitle>{{company.city}}, {{company.country}}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-header *ngIf="!company.id">
+    <mat-card-title>New Company</mat-card-title>
   </mat-card-header>
   <mat-card-content>
     <div class="form-container">
@@ -84,19 +32,11 @@
         <input matInput placeholder="Phone Number" [(ngModel)]="company.phone_number">
       </mat-form-field>
 
-      <!--<mat-card>-->
-      <!--<mat-card-title>Owners:</mat-card-title>-->
-      <!--<button *ngFor="let owner of company.owners" (click)="removeOwner(owner)">{{owner.name}}</button>-->
-      <!--</mat-card>-->
-
       <app-owner-search [owners]="company.owners" (messageEvent)="receiveMessage($event)"></app-owner-search>
 
       <div *ngIf="company">
         <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" (click)="save()">Save</button>
-        <!--<button mat-raised-button color="warn" (click)="update()">Update</button>-->
       </div>
-
     </div>
   </mat-card-content>
-  <!--{{company | json}}-->
 </mat-card>
