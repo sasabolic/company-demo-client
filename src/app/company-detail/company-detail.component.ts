@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {CompanyService} from "../company.service";
-import {CompanyDetails} from "../company-details";
 import {ErrorMessageComponent} from "../error-message/error-message.component";
+import {Company} from "../company";
 
 @Component({
   selector: 'app-company-detail',
@@ -9,8 +9,8 @@ import {ErrorMessageComponent} from "../error-message/error-message.component";
   styleUrls: ['./company-detail.component.css']
 })
 export class CompanyDetailComponent implements OnInit {
-  @Input() company: CompanyDetails;
-  @Output() messageEvent = new EventEmitter<CompanyDetails>();
+  @Input() company: Company;
+  @Output() messageEvent = new EventEmitter<string>();
 
   constructor(private companyService: CompanyService) {
   }
@@ -24,7 +24,7 @@ export class CompanyDetailComponent implements OnInit {
         .subscribe(() => this.messageEvent.emit('refresh'));
     } else {
       this.companyService.saveCompany(this.company)
-        .subscribe(result => {
+        .subscribe(() => {
           this.messageEvent.emit('refresh');
         }
       );

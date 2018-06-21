@@ -6,12 +6,13 @@ import {catchError, tap} from 'rxjs/operators';
 import {of} from "rxjs/internal/observable/of";
 
 import {Owner} from "./owner";
+import {environment} from "../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class OwnerService {
-  private ownersUrl = 'https://agile-plains-88331.herokuapp.com/owners';
+  private ownersUrl = `${environment.apiPath}/owners`;
 
   constructor(private http: HttpClient) {
   }

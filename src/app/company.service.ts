@@ -6,9 +6,9 @@ import {Observable} from 'rxjs';
 import {catchError, tap} from 'rxjs/operators';
 import {of} from "rxjs/internal/observable/of";
 
-import {CompanyDetails} from "./company-details";
 import {CompanySave} from "./company-save";
 import {MatSnackBar} from "@angular/material";
+import {environment} from "../environments/environment";
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -18,7 +18,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class CompanyService {
-  private companiesUrl = 'http://localhost:8080/companies';
+  private companiesUrl = `${environment.apiPath}/companies`;
 
   constructor(private http: HttpClient, public snackBar: MatSnackBar) {
   }
@@ -32,17 +32,17 @@ export class CompanyService {
   }
 
   /** GET company by id. Will 404 if id not found */
-  getCompany(id: number): Observable<CompanyDetails> {
+  getCompany(id: number): Observable<Company> {
     const url = `${this.companiesUrl}/${id}`;
 
-    return this.http.get<CompanyDetails>(url).pipe(
+    return this.http.get<Company>(url).pipe(
       tap(() => console.log(`Received company with id=${id}`)),
       catchError(this.handleError<Company>(`getCompany id=${id}`))
     );
   }
 
   /** PUT: update the company on the server */
-  updateCompany(company: CompanyDetails): Observable<any> {
+  updateCompany(company: Company): Observable<any> {
     let saveCompanyRequest: CompanySave = {
       name: company.name,
       address: company.address,
@@ -60,7 +60,7 @@ export class CompanyService {
   }
 
   /** POST: add a new company to the server */
-  saveCompany(company: CompanyDetails): Observable<any> {
+  saveCompany(company: Company): Observable<any> {
     let saveCompanyRequest: CompanySave = {
       name: company.name,
       address: company.address,

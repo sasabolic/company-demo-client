@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Company} from "../company";
 import {CompanyService} from "../company.service";
-import {CompanyDetails} from "../company-details";
 
 
 @Component({
@@ -10,7 +9,7 @@ import {CompanyDetails} from "../company-details";
   styleUrls: ['./companies.component.css']
 })
 export class CompaniesComponent implements OnInit {
-  selectedCompanyDetails: CompanyDetails;
+  selectedCompany: Company;
   companies: Company[];
 
   constructor(private companyService: CompanyService) {
@@ -25,7 +24,7 @@ export class CompaniesComponent implements OnInit {
   }
 
   onNew(): void {
-    this.selectedCompanyDetails = new CompanyDetails();
+    this.selectedCompany = new Company();
   }
 
   getCompanies(): void {
@@ -35,7 +34,7 @@ export class CompaniesComponent implements OnInit {
 
   getCompany(id: number) {
     this.companyService.getCompany(id)
-      .subscribe(c => this.selectedCompanyDetails = c);
+      .subscribe(c => this.selectedCompany = c);
   }
 
   receiveMessage($event) {

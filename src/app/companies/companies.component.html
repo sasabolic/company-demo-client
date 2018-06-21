@@ -16,7 +16,7 @@
         </thead>
         <tbody>
         <tr *ngFor="let company of companies;"
-            [class.selected]="selectedCompanyDetails !== undefined && company.id === selectedCompanyDetails.id"
+            [class.selected]="selectedCompany !== undefined && company.id === selectedCompany.id"
             (click)="onSelect(company)">
           <td class="mdl-data-table__cell--non-numeric">{{company.name}}</td>
           <td class="mdl-data-table__cell--non-numeric">{{company.address}}</td>
@@ -30,7 +30,7 @@
       </button>
     </div>
     <div class="mdl-cell mdl-cell--4-col">
-      <app-company-detail [company]="selectedCompanyDetails"
+      <app-company-detail [company]="selectedCompany"
                           (messageEvent)="receiveMessage($event)"></app-company-detail>
     </div>
   </div>
