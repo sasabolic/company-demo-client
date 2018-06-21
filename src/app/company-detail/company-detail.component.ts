@@ -1,8 +1,6 @@
-import {Component, OnInit, Input, EventEmitter, Output} from '@angular/core';
-import {Company} from "../company";
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {CompanyService} from "../company.service";
 import {CompanyDetails} from "../company-details";
-import {Owner} from "../owner";
 
 @Component({
   selector: 'app-company-detail',
@@ -31,10 +29,6 @@ export class CompanyDetailComponent implements OnInit {
 
         });
     }
-  }
-
-  removeOwner(owner: Owner) {
-    this.company.owners = this.company.owners.filter(o => o.id !== owner.id);
   }
 
   receiveMessage($event) {
