@@ -1,9 +1,9 @@
 import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {Observable} from "rxjs/internal/Observable";
 import {Subject} from "rxjs/internal/Subject";
-import {Owner} from "../owner";
+import {Owner} from "../../models/owner";
 import {debounceTime, distinctUntilChanged, switchMap} from "rxjs/operators";
-import {OwnerService} from "../services/owner.service";
+import {OwnerService} from "../../services/owner.service";
 import {FormControl} from "@angular/forms";
 import {MatAutocompleteSelectedEvent} from "@angular/material";
 

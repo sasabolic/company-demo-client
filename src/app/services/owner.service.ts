@@ -5,9 +5,10 @@ import {Observable} from 'rxjs';
 import {catchError, tap} from 'rxjs/operators';
 import {of} from "rxjs/internal/observable/of";
 
-import {Owner} from "./owner";
-import {environment} from "../environments/environment";
+import {Owner} from "../models/owner";
+import {environment} from "../../environments/environment";
 import {BaseService} from "./base.service";
+import {MatSnackBar} from "@angular/material";
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,8 @@ import {BaseService} from "./base.service";
 export class OwnerService extends BaseService {
   private ownersUrl = `${environment.apiPath}/owners`;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, protected snackBar: MatSnackBar) {
+    super(snackBar);
   }
 
   /** GET owners whose name contains search term **/

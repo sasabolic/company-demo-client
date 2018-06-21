@@ -1,12 +1,13 @@
 import {Injectable} from '@angular/core';
-import {Company} from "./company";
+import {Company} from "../models/company";
 
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {catchError, tap} from 'rxjs/operators';
 
-import {CompanySave} from "./company-save";
-import {environment} from "../environments/environment";
+import {CompanySave} from "../models/company-save";
+import {MatSnackBar} from "@angular/material";
+import {environment} from "../../environments/environment";
 import {BaseService} from "./base.service";
 
 const httpOptions = {
@@ -19,8 +20,8 @@ const httpOptions = {
 export class CompanyService extends BaseService {
   private companiesUrl = `${environment.apiPath}/companies`;
 
-  constructor(protected http: HttpClient) {
-    
+  constructor(protected http: HttpClient, protected snackBar: MatSnackBar) {
+    super(snackBar);
   }
 
   /** GET all companies */

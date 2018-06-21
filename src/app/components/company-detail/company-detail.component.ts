@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {CompanyService} from "../services/company.service";
-import {Company} from "../company";
+import {CompanyService} from "../../services/company.service";
+import {Company} from "../../models/company";
 
 @Component({
   selector: 'app-company-detail',
