@@ -1,13 +1,11 @@
-import {Component, OnInit, EventEmitter, Output, ViewChild, ElementRef, Input} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {Observable} from "rxjs/internal/Observable";
 import {Subject} from "rxjs/internal/Subject";
 import {Owner} from "../owner";
 import {debounceTime, distinctUntilChanged, switchMap} from "rxjs/operators";
 import {OwnerService} from "../owner.service";
 import {FormControl} from "@angular/forms";
-import {COMMA, ENTER} from "@angular/cdk/keycodes";
-import {MatAutocompleteSelectedEvent, MatChipInputEvent} from "@angular/material";
-import {CompanyDetails} from "../company-details";
+import {MatAutocompleteSelectedEvent} from "@angular/material";
 
 @Component({
   selector: 'app-owner-search',
@@ -16,22 +14,17 @@ import {CompanyDetails} from "../company-details";
 })
 export class OwnerSearchComponent implements OnInit {
   owners$: Observable<Owner[]>;
+
   private searchTerms = new Subject<string>();
+
   @Input() owners: Owner[];
+  @Output() messageEvent = new EventEmitter<Owner>();
 
   myControl: FormControl = new FormControl();
 
-  visible: boolean = true;
-  selectable: boolean = true;
   removable: boolean = true;
-  addOnBlur: boolean = false;
-
-  separatorKeysCodes = [ENTER, COMMA];
 
   @ViewChild('ownerInput') ownerInput: ElementRef;
-
-
-  @Output() messageEvent = new EventEmitter<Owner>();
 
   constructor(private ownerService: OwnerService) {}
 
@@ -39,16 +32,6 @@ export class OwnerSearchComponent implements OnInit {
   search(term: string): void {
     this.searchTerms.next(term);
   }
-
-  displayFn(owner?: Owner): string | undefined {
-    return owner ? owner.name : undefined;
-  }
-
-  // onSelect(owner: Owner) {
-  //   alert("selected: " +owner);
-  //   this.searchTerms.next('');
-  //   this.messageEvent.emit(owner);
-  // }
 
   selected(event: MatAutocompleteSelectedEvent): void {
     console.log('event: ' + event.option.viewValue);
@@ -76,7 +59,7 @@ export class OwnerSearchComponent implements OnInit {
   ngOnInit(): void {
     this.owners$ = this.searchTerms.pipe(
       // // wait 300ms after each keystroke before considering the term
-      // debounceTime(300),
+      debounceTime(300),
 
       // ignore new term if same as previous term
       distinctUntilChanged(),
@@ -85,6 +68,4 @@ export class OwnerSearchComponent implements OnInit {
       switchMap((term: string) => this.ownerService.searchOwners(term)),
     );
   }
-
-
 }

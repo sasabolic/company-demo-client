@@ -16,7 +16,7 @@ export class OwnerService {
   constructor(private http: HttpClient) {
   }
 
-  /* GET owners whose name contains search term */
+  /** GET owners whose name contains search term **/
   searchOwners(term: string): Observable<Owner[]> {
     if (!term.trim()) {
       // if not search term, return empty owner array.
