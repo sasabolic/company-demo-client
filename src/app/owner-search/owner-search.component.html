@@ -1,0 +1,53 @@
+<!--<div id="search-component">-->
+  <!--<h4>Owner Search</h4>-->
+
+  <!--<input #searchBox id="search-box" (keyup.enter)="search(searchBox.value)" />-->
+
+  <!--<ul class="search-result">-->
+    <!--<li *ngFor="let owner of owners$ | async" >-->
+      <!--<a (click)="onSelect(owner)">-->
+        <!--{{owner.name}}-->
+      <!--</a>-->
+    <!--</li>-->
+  <!--</ul>-->
+<!--</div>-->
+
+<mat-form-field class="demo-chip-list">
+  <mat-chip-list #ownerList>
+    <mat-chip
+      *ngFor="let owner of owners"
+      [selectable]="selectable"
+      [removable]="removable"
+      (removed)="remove(owner)">
+      {{owner.name}}
+      <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+    </mat-chip>
+    <input
+      placeholder="Owners"
+      #ownerInput
+      [formControl]="myControl"
+      [matAutocomplete]="auto"
+      [matChipInputFor]="ownerList"
+      [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+      [matChipInputAddOnBlur]="addOnBlur"
+
+      (matChipInputTokenEnd)="add($event)"
+      (keyup)="search(ownerInput.value)"
+    />
+  </mat-chip-list>
+  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+    <mat-option *ngFor="let owner of owners$ | async" [value]="owner">
+      {{ owner.name }}
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>
+
+
+<!--<mat-form-field class="example-full-width">-->
+  <!--<input #searchBox id="search-box" type="text" placeholder="Owners" (keyup)="search(searchBox.value)" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">-->
+  <!--<mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">-->
+    <!--<mat-option *ngFor="let owner of owners$ | async" [value]="owner" (onSelectionChange)="onSelect(owner)">-->
+      <!--{{ owner.name }}-->
+    <!--</mat-option>-->
+  <!--</mat-autocomplete>-->
+<!--</mat-form-field>-->

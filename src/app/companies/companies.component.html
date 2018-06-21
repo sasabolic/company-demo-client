@@ -1,0 +1,47 @@
+<!--<h2>Companies</h2>-->
+<!--<ul class="heroes">-->
+<!--<li *ngFor="let company of companies"-->
+<!--[class.selected]="selectedCompanyDetails !== undefined && company.id === selectedCompanyDetails.id"-->
+<!--(click)="onSelect(company)">-->
+<!--<span class="badge">{{company.id}}</span> {{company.name}}-->
+<!--</li>-->
+<!--</ul>-->
+<!--<button (click)="onNew()">New</button>-->
+<!--<app-company-detail [company]="selectedCompanyDetails" (messageEvent)="receiveMessage($event)"></app-company-detail>-->
+
+
+<div class="mdl-grid">
+  <div *ngIf="!companies" class="mdl-cell mdl-cell--12-col" style="text-align:center;">
+    Loading...
+  </div>
+
+  <!--<summary [stock]="stock"></summary> Instantiate a Summary component for </div> each stock and pass that stock data.-->
+  <div *ngIf="companies" class="mdl-cell mdl-cell--8-col">
+    <table class="mdl-shadow--2dp"
+           style="width: 100%;">
+      <thead>
+        <tr>
+          <th class="mdl-data-table__cell--non-numeric">Name</th>
+          <th class="mdl-data-table__cell--non-numeric">Address</th>
+          <th class="mdl-data-table__cell--non-numeric">City</th>
+          <th class="mdl-data-table__cell--non-numeric">Country</th>
+       </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let company of companies"
+          [class.selected]="selectedCompanyDetails !== undefined && company.id === selectedCompanyDetails.id"
+          (click)="onSelect(company)">
+        <td class="mdl-data-table__cell--non-numeric">{{company.name}}</td>
+        <td class="mdl-data-table__cell--non-numeric">{{company.address}}</td>
+        <td class="mdl-data-table__cell--non-numeric">{{company.city}}</td>
+        <td class="mdl-data-table__cell--non-numeric">{{company.country}}</td>
+      </tr>
+      </tbody>
+    </table>
+    <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" style="margin-top: 6px;" (click)="onNew()">Add Company</button>
+  </div>
+  <div class="mdl-cell mdl-cell--4-col">
+    <app-company-detail [company]="selectedCompanyDetails"
+                        (messageEvent)="receiveMessage($event)"></app-company-detail>
+  </div>
+</div>
