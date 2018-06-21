@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {CompanyService} from "../company.service";
 import {CompanyDetails} from "../company-details";
+import {ErrorMessageComponent} from "../error-message/error-message.component";
 
 @Component({
   selector: 'app-company-detail',
@@ -23,11 +24,10 @@ export class CompanyDetailComponent implements OnInit {
         .subscribe(() => this.messageEvent.emit('refresh'));
     } else {
       this.companyService.saveCompany(this.company)
-        .subscribe(success => {
-          alert('created: ' + success);
+        .subscribe(result => {
           this.messageEvent.emit('refresh');
-
-        });
+        }
+      );
     }
   }
 

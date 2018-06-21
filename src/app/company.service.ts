@@ -3,11 +3,12 @@ import {Company} from "./company";
 
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {catchError, map, tap} from 'rxjs/operators';
+import {catchError, tap} from 'rxjs/operators';
 import {of} from "rxjs/internal/observable/of";
 
 import {CompanyDetails} from "./company-details";
 import {CompanySave} from "./company-save";
+import {MatSnackBar} from "@angular/material";
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -19,7 +20,7 @@ const httpOptions = {
 export class CompanyService {
   private companiesUrl = 'http://localhost:8080/companies';
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, public snackBar: MatSnackBar) {
   }
 
   getCompanies(): Observable<Company[]> {
@@ -28,7 +29,6 @@ export class CompanyService {
         tap(() => console.log(`Received list of companies`)),
         catchError(this.handleError('getCompanies', []))
       );
-    ;
   }
 
   /** GET company by id. Will 404 if id not found */
@@ -60,7 +60,7 @@ export class CompanyService {
   }
 
   /** POST: add a new company to the server */
-  saveCompany (company: CompanyDetails): Observable<any> {
+  saveCompany(company: CompanyDetails): Observable<any> {
     let saveCompanyRequest: CompanySave = {
       name: company.name,
       address: company.address,
@@ -71,8 +71,7 @@ export class CompanyService {
       owners: company.owners.map(o => o.id)
     };
     return this.http.post(this.companiesUrl, saveCompanyRequest, httpOptions).pipe(
-    // return this.http.post<Company>(this.companiesUrl, saveCompanyRequest, httpOptions).pipe(
-      // tap((company: Company) => console.log(`Created company with id=${company.id}`)),
+      tap(() => console.log(`Created company`)),
       catchError(this.handleError<Company>('saveCompany'))
     );
   }
@@ -86,11 +85,23 @@ export class CompanyService {
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
 
-      // TODO: send the error to remote logging infrastructure
-      console.error(error); // log to console instead
+      // Log error to console
+      console.error(error);
+
+      let e = error.error;
+
+      this.openSnackBar(e.message + ': ' + e.errors, "Error");
 
       // Let the app keep running by returning an empty result.
       return of(result as T);
     };
+  }
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 4000,
+      verticalPosition: 'top',
+      horizontalPosition:'end'
+    });
   }
 }

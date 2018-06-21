@@ -14,9 +14,11 @@ import {
   MatChipsModule,
   MatFormFieldModule,
   MatIconModule,
-  MatInputModule
+  MatInputModule,
+  MatSnackBarModule
 } from "@angular/material";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {ErrorMessageComponent} from './error-message/error-message.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,8 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     ReactiveFormsModule,
     MatAutocompleteModule,
     MatChipsModule,
-    MatIconModule
+    MatIconModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
